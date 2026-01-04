@@ -1,0 +1,70 @@
+/* Center the card on the screen */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #081b28; /* Dark background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: #081b28;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Important: clips the rotating rectangle */
+}
+
+/* The Rotating "Light Beam" */
+.card::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 140%; /* Tall enough to cover corners while rotating */
+    background: linear-gradient(#00ccff, #d400ff);
+    animation: rotate 2s linear infinite;
+}
+
+/* The Inner Cover (Mask) */
+/* This creates the "hole" in the middle so only the edges show */
+.card::after {
+    content: '';
+    position: absolute;
+    background: #1f2d72; /* Match the body background */
+    inset: 5px; /* Controls border thickness */
+    border-radius: 15px;
+}
+
+/* Ensures the text is visible above the background layers */
+.card span {
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    font-size: 2em;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Rotation Animation Logic */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Optional: Hover effect to speed up the rotation */
+.card:hover::before {
+    animation-duration: 1.5s;
+    background: linear-gradient(#ff0055, #ffeb3b);
+}
